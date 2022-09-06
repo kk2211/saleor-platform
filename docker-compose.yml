@@ -4,11 +4,7 @@ services:
   api:
     ports:
       - 8000:8000
-    build:
-      context: ./saleor
-      dockerfile: ./Dockerfile
-      args:
-        STATIC_URL: "/static/"
+    image: kaab1999/saleor-platform_api:latest
     restart: unless-stopped
     networks:
       - saleor-backend-tier
@@ -107,11 +103,7 @@ services:
       - saleor-redis:/data
 
   worker:
-    build:
-      context: ./saleor
-      dockerfile: ./Dockerfile
-      args:
-        STATIC_URL: "/static/"
+    image: kaab1999/saleor-platform_worker:latest
     command: celery -A saleor --app=saleor.celeryconf:app worker --loglevel=info -B
     restart: unless-stopped
     networks:
